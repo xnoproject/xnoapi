@@ -3,6 +3,7 @@
 XNO API is a Python package for retrieving financial data from multiple sources with a simple and intuitive interface.
 
 ### Contents
+
 - [Installation](#installation)
 - [Documentation](#documentation)
 - [Usage](#usage)
@@ -12,6 +13,7 @@ XNO API is a Python package for retrieving financial data from multiple sources 
 - [License](#license)
 
 ## Installation
+
 You can install the XNO API package using pip:
 
 ```sh
@@ -36,6 +38,7 @@ client(apikey="your_api_key")
 ```
 
 ## Documentation
+
 Full documentation is available online:
 
 [![Documentation Status](https://readthedocs.org/projects/xnoapi/badge/?version=latest)](https://xnoapi.readthedocs.io/en/latest/?badge=latest)
@@ -43,6 +46,7 @@ Full documentation is available online:
 A PDF version of the documentation is available [here](https://buildmedia.readthedocs.org/media/pdf/xnoapi/latest/xnoapi.pdf).
 
 ## Usage
+
 XNO API provides a structured interface for retrieving financial data:
 
 ```python
@@ -56,25 +60,33 @@ stocks.list_liquid_asset()
 
 # Get historical stock data
 stocks.get_hist("VIC", "1D")
+
+#Get historical derivatives
+derivatives.get_hist("VN30F1M", "1m")
 ```
 
 ## Available Modules
+
 XNO API includes the following modules:
 
 ### **Financial Data**
+
 - `xnoapi.vn.data.stocks`
-    - `list_liquid_asset()`: Retrieve a list of liquid stocks.
-    - `get_hist(asset_name, frequency)`: Get historical data for a given asset.
+  - `list_liquid_asset()`: Retrieve a list of liquid stocks.
+  - `get_hist(asset_name, frequency)`: Get historical data for a given asset.
 - `xnoapi.vn.data.derivatives`
-    - `get_hist()`: Get historical derivative data.
+  - `get_hist()`: Get historical derivative data.
 
 ### **Metrics and Analytics**
+
 - `xnoapi.vn.metrics`
-    - `Metrics`: Various financial metrics calculation.
-    - `Backtest_Derivates`: Backtesting tools for derivatives.
+  - `Metrics`: Various financial metrics calculation.
+  - `Backtest_Derivates`: Backtesting tools for derivatives.
 
 ## Examples
+
 ### **Retrieving Stock Data**
+
 ```python
 from xnoapi import client
 from xnoapi.vn.data import stocks
@@ -89,19 +101,24 @@ vic_history = stocks.get_hist("VIC", "1D")
 ```
 
 ### **Using Metrics**
+
 ```python
-from xnoapi.vn.metrics import Metrics
+from xnoapi.vn.metrics import Metrics, Backtest_Derivates
+from xnoapi.vn.data import derivatives
 
 # Initialize metrics instance
-metrics = Metrics()
+historical = derivatives.get_hist("VN30F1M", "1m")
+backtest = Backtest_Derivates(historical, "raw")
+metrics = Metrics(backtest)
 
 # Example usage
-result = metrics.some_metric_function("VIC")
+result = metrics.avg_loss()
 ```
 
 ## Credits
+
 This library is developed and maintained by the XNO API team. Special thanks to contributors and financial data providers for their support.
 
 ## License
-This library is licensed under the [MIT License](https://choosealicense.com/licenses/mit/). See [LICENSE](https://github.com/yourusername/xnoapi/blob/master/LICENSE) for more details.
 
+This library is licensed under the [MIT License](https://choosealicense.com/licenses/mit/). See [LICENSE](https://github.com/xnoproject/xnoapi/blob/main/LISENCE) for more details.
