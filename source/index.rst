@@ -1,7 +1,10 @@
+.. xnoapi documentation master file, created by
+   sphinx-quickstart on Mon Mar 31 16:42:27 2025.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-
-Introduction
-============
+xnoapi documentation
+====================
 
 XNO API is a Python package for retrieving financial data from multiple sources with a simple and intuitive interface.
 
@@ -24,8 +27,18 @@ Alternatively, you can clone this repository and install the package manually:
 
 .. code:: none
 
-   $ git clone https://github.com/xnoproject/xnoapi.git
+   $ git clone git@github.com:yourusername/xnoapi.git
    $ pip install ./xnoapi
+
+After installation, you can import and start using XNO API:
+
+.. code:: python
+
+   from xnoapi import client
+   from xnoapi.vn.data import stocks, derivatives
+   from xnoapi.vn.metrics import Metrics, Backtest_Derivates
+
+   client(apikey="your_api_key")
 
 ----
 
@@ -45,10 +58,10 @@ Contents
    :caption: API
    :maxdepth: 2
 
-   api/xnoapi
-   .. api/derivatives
-   .. api/metrics
-   .. api/backtest_derivatives
+   api/stocks
+   api/derivatives
+   api/metrics
+   api/backtest_derivatives
 
 ----
 
