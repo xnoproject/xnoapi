@@ -106,9 +106,18 @@ vic_history = stocks.get_hist("VIC", "1D")
 from xnoapi.vn.metrics import Metrics, Backtest_Derivates
 from xnoapi.vn.data import derivatives
 
+def gen_position(df):
+    """
+    Position generation strategy: Volume change detection
+    """
+    return df.assign(
+        position=np.sign(df["Close"] - df["Close"].rolling(window=20).median())
+    )
+
 # Initialize metrics instance
 historical = derivatives.get_hist("VN30F1M", "1m")
-backtest = Backtest_Derivates(historical, "raw")
+position = gen_position(historical)
+backtest = Backtest_Derivates(position, "raw") # raw or after_fees
 metrics = Metrics(backtest)
 
 # Example usage
