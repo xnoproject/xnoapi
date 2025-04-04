@@ -27,7 +27,7 @@ Alternatively, you can clone this repository and install the package manually:
 
 .. code:: none
 
-   $ git clone git@github.com:yourusername/xnoapi.git
+   $ git clone https://github.com/xnoproject/xnoapi.git
    $ pip install ./xnoapi
 
 After installation, you can import and start using XNO API:
