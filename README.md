@@ -111,11 +111,14 @@ df = derivatives.get_hist("VN30F1M", "1m")
 df_pos = gen_position(df)
 
 # Run backtest
-backtest = Backtest_Derivates(df_pos, fee_mode="raw")
+backtest = Backtest_Derivates(df_pos, pnl_type="raw")
 metrics = Metrics(backtest)
 
-# Print average loss
-print(metrics.avg_loss())
+# Print Sharpe Ratio
+print(metrics.sharpe())
+
+# Plot PNL
+backtest.daily_PNL().plot()
 ```
 
 ---
