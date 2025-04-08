@@ -1,33 +1,35 @@
 # XNO API Library
 
-XNO API is a Python package for retrieving financial data from multiple sources with a simple and intuitive interface.
+**XNO API** is a Python package for retrieving financial data and performing quantitative analysis, specifically optimized for the **Vietnamese financial market**. It provides a clean, modular interface to access data on stocks, derivatives, and backtesting tools for PnL and performance metrics.
 
-### Contents
+---
 
-- [Installation](#installation)
-- [Documentation](#documentation)
-- [Usage](#usage)
-- [Available Modules](#available-modules)
-- [Examples](#examples)
-- [Credits](#credits)
-- [License](#license)
+## 📌 Key Features
 
-## Installation
+- 🔎 Simple interface to retrieve **real-time and historical data** for Vietnamese stocks and derivatives  
+- 📈 Built-in support for **performance metrics**: Sharpe, Sortino, Max Drawdown, and more  
+- 📊 Optimized **PnL backtesting tools** for derivatives with **Vietnam-specific fee structures**  
+- 🧪 Compatible with pandas, NumPy for custom strategies and analysis  
+- 🖼️ Easily extensible for **visual output of strategies and metrics**
 
-You can install the XNO API package using pip:
+---
+
+## 📦 Installation
+
+Install via pip:
 
 ```sh
 pip install xnoapi
 ```
 
-Alternatively, you can clone this repository and install the package manually:
+Or clone this repo:
 
 ```sh
-$ git clone https://github.com/xnoproject/xnoapi.git
-$ pip install ./xnoapi
+git clone https://github.com/xnoproject/xnoapi.git
+pip install ./xnoapi
 ```
 
-After installation, you can import and start using XNO API:
+After installation:
 
 ```python
 from xnoapi import client
@@ -37,17 +39,19 @@ from xnoapi.vn.metrics import Metrics, Backtest_Derivates
 client(apikey="your_api_key")
 ```
 
-## Documentation
+---
 
-Full documentation is available online:
+## 📚 Documentation
 
-[![Documentation Status](https://readthedocs.org/projects/xnoapi/badge/?version=latest)](https://xnoapi.readthedocs.io/en/latest/?badge=latest)
+- Online Docs: [https://xnoapi.readthedocs.io](https://xnoapi.readthedocs.io/en/latest/)
+- ![Documentation Status](https://readthedocs.org/projects/xnoapi/badge/?version=latest)
+- [📄 PDF version](https://buildmedia.readthedocs.org/media/pdf/xnoapi/latest/xnoapi.pdf)
 
-A PDF version of the documentation is available [here](https://buildmedia.readthedocs.org/media/pdf/xnoapi/latest/xnoapi.pdf).
+---
 
-## Usage
+## 🚀 Usage Example
 
-XNO API provides a structured interface for retrieving financial data:
+Retrieve and analyze Vietnamese stock & derivative data:
 
 ```python
 from xnoapi import client
@@ -55,79 +59,75 @@ from xnoapi.vn.data import stocks, derivatives
 
 client(apikey="your_api_key")
 
-# Retrieve list of liquid assets
+# List of liquid stocks
 stocks.list_liquid_asset()
 
-# Get historical stock data
-stocks.get_hist("VIC", "1D")
+# Historical data for VIC (Vingroup)
+vic = stocks.get_hist("VIC", "1D")
 
-#Get historical derivatives
-derivatives.get_hist("VN30F1M", "1m")
+# Historical data for VN30F1M derivative
+vn30f1m = derivatives.get_hist("VN30F1M", "1m")
 ```
 
-## Available Modules
+---
 
-XNO API includes the following modules:
+## 🧠 Available Modules
 
-### **Financial Data**
+### 📊 Financial Data
 
 - `xnoapi.vn.data.stocks`
-  - `list_liquid_asset()`: Retrieve a list of liquid stocks.
-  - `get_hist(asset_name, frequency)`: Get historical data for a given asset.
+  - `list_liquid_asset()`: List of high-liquidity Vietnamese stocks.
+  - `get_hist(asset, frequency)`: Historical OHLCV data.
+
 - `xnoapi.vn.data.derivatives`
-  - `get_hist()`: Get historical derivative data.
+  - `get_hist(asset, frequency)`: Derivative market data (e.g., VN30F1M).
 
-### **Metrics and Analytics**
+### 📈 Metrics & Analytics
 
-- `xnoapi.vn.metrics`
-  - `Metrics`: Various financial metrics calculation.
-  - `Backtest_Derivates`: Backtesting tools for derivatives.
+- `xnoapi.vn.metrics.Metrics`: 
+  - Includes: Sharpe Ratio, Sortino Ratio, Max Drawdown, Avg Gain/Loss, Hit Ratio...
+- `xnoapi.vn.metrics.Backtest_Derivates`: 
+  - Backtesting logic for trading strategies with support for fee modeling.
 
-## Examples
+---
 
-### **Retrieving Stock Data**
+## 🧪 Examples
 
-```python
-from xnoapi import client
-from xnoapi.vn.data import stocks
-
-client(apikey="your_api_key")
-
-# Get list of liquid assets
-liquid_assets = stocks.list_liquid_asset()
-
-# Get historical data for VIC stock
-vic_history = stocks.get_hist("VIC", "1D")
-```
-
-### **Using Metrics**
+### Strategy Evaluation with Metrics
 
 ```python
 from xnoapi.vn.metrics import Metrics, Backtest_Derivates
 from xnoapi.vn.data import derivatives
+import numpy as np
 
 def gen_position(df):
-    """
-    Position generation strategy: Volume change detection
-    """
+    # Volume-based signal generation
     return df.assign(
-        position=np.sign(df["Close"] - df["Close"].rolling(window=20).median())
+        position=np.sign(df["Close"] - df["Close"].rolling(20).median())
     )
 
-# Initialize metrics instance
-historical = derivatives.get_hist("VN30F1M", "1m")
-position = gen_position(historical)
-backtest = Backtest_Derivates(position, "raw") # raw or after_fees
+# Get 1-minute historical data
+df = derivatives.get_hist("VN30F1M", "1m")
+df_pos = gen_position(df)
+
+# Run backtest
+backtest = Backtest_Derivates(df_pos, fee_mode="raw")
 metrics = Metrics(backtest)
 
-# Example usage
-result = metrics.avg_loss()
+# Print average loss
+print(metrics.avg_loss())
 ```
 
-## Credits
+---
 
-This library is developed and maintained by the XNO API team. Special thanks to contributors and financial data providers for their support.
+## 🤝 Credits
 
-## License
+Maintained by the **XNO Team**.  
+Special thanks to contributors and financial data providers supporting the Vietnamese retail quant community.
 
-This library is licensed under the [MIT License](https://choosealicense.com/licenses/mit/). See [LICENSE](https://github.com/xnoproject/xnoapi/blob/main/LISENCE) for more details.
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/).  
+See [LICENSE](https://github.com/xnoproject/xnoapi/blob/main/LICENSE) for full details.
