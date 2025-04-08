@@ -6,7 +6,7 @@
 xnoapi documentation
 ====================
 
-XNO API is a Python package for retrieving financial data from multiple sources with a simple and intuitive interface.
+XNO API is a Python package for retrieving financial data from multiple sources with a simple and intuitive interface. To sign up for API Key access, register free account at xbot.xno.vn
 
 Author: XNO API Team
 
@@ -68,7 +68,7 @@ Contents
 Usage
 -----
 
-XNO API provides a structured interface for retrieving financial data:
+XNO API provides a structured interface for retrieving financial data and modules for efficient PNL calculation and performance tracking in the Vietnamese Financial Market:
 
 .. code:: python
 
@@ -94,16 +94,16 @@ Available Modules
 ### **Financial Data**
 
 - `xnoapi.vn.data.stocks`
-  - `list_liquid_asset()`: Retrieve a list of liquid stocks.
-  - `get_hist(asset_name, frequency)`: Get historical data for a given asset.
+  - `list_liquid_asset()`: Retrieve list of liquid stocks in Vietnamese financial market.
+  - `get_hist(asset_name, frequency)`: Get historical data for a given asset among liquid assets in Vietnamese Financial Market.
 - `xnoapi.vn.data.derivatives`
   - `get_hist()`: Get historical derivative data.
 
 ### **Metrics and Analytics**
 
 - `xnoapi.vn.metrics`
-  - `Metrics`: Various financial metrics calculation.
-  - `Backtest_Derivates`: Backtesting tools for derivatives.
+  - `Metrics`: Various financial metrics calculation. Includes Sharpe Ratio, Sortino Ratio, Max Drawdown, and more
+  - `Backtest_Derivates`: Backtesting tools for derivatives, with fees calculation optimized for Vietnamese financial market.
 
 ----
 
