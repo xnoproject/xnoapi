@@ -41,7 +41,7 @@ class Config:
         Returns:
             str: The API base URL.
         """
-        return "https://61rpkv4pr0.execute-api.ap-southeast-1.amazonaws.com/v1"
+        return "https://d16sdkoet71cxx.cloudfront.net"
 
 
 def client(apikey: str):
