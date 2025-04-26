@@ -103,6 +103,41 @@ Available Modules
 - `xnoapi.vn.metrics.Backtest_Derivates`: Backtesting logic for trading strategies with support for fee modeling.
 - `xnoapi.metrics.single_asset.TradingBacktest`: Lightweight backtesting class for trading strategies on derivatives (supports raw and after-fee PnL calculation). Metrics included: Sharpe, Sortino, Calmar, Max Drawdown, Win Rate, Profit Factor, Risk of Ruin, etc.
 
+**Stocks (`xnoapi.vn.data.stocks`)**
+
+- **list_liquid_asset()**  
+  List of high-liquidity Vietnamese stocks.
+
+- **get_hist(asset)**  
+  Retrieve historical OHLCV data for a given stock.
+
+**Derivatives (`xnoapi.vn.data.derivatives`)**
+
+- **get_hist(asset, frequency)**  
+  Retrieve derivative market data (e.g., VN30F1M futures) with specified frequency.
+
+Metrics and Analytics
+----------------------
+
+**Metrics (`xnoapi.vn.metrics.Metrics`)**
+- Various financial performance metrics:
+  - `avg_loss()`: Average loss per trade.
+  - `avg_return()`: Average return per trade.
+  - `avg_win()`: Average win per trade.
+  - `max_drawdown()`: Maximum drawdown observed.
+  - `win_rate()`: Percentage of winning trades.
+  - `volatility()`: Measure of price fluctuations.
+  - `sharpe()`: Sharpe ratio for risk-adjusted return.
+  - `sortino()`: Sortino ratio for downside risk adjustment.
+  - `calmar()`: Calmar ratio for risk-adjusted return over drawdown.
+  - `profit_factor()`: Ratio of gross profit to gross loss.
+  - `risk_of_ruin()`: Probability of losing all capital.
+  - `value_at_risk()`: Measure of potential loss in value of an asset.
+
+
+**Backtesting (`xnoapi.vn.metrics.Backtest_Derivates`)**
+- Backtesting logic for trading strategies, including fee modeling support.
+
 ----
 
 API Documentation
