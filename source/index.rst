@@ -92,7 +92,6 @@ Available Modules
 -----------------
 
 **Financial Data**
-
 - `xnoapi.vn.data.stocks`
   - `list_liquid_asset()`: List of high-liquidity Vietnamese stocks.
   - `get_hist(asset)`: Historical OHLCV data.
@@ -100,7 +99,6 @@ Available Modules
   - `get_hist(asset, frequency)`: Derivative market data (e.g., VN30F1M).
 
 **Metrics and Analytics**
-
 - `xnoapi.vn.metrics.Metrics`:
   - Includes: Sharpe Ratio, Sortino Ratio, Max Drawdown, Avg Gain/Loss, Hit Ratio...
 - `xnoapi.vn.metrics.Backtest_Derivates`:
@@ -173,6 +171,7 @@ Examples
 **Using Metrics**
 
 .. code:: python
+
    from xnoapi.vn.metrics import Metrics, Backtest_Derivates
    from xnoapi.vn.data import derivatives
    import numpy as np
@@ -244,6 +243,85 @@ Examples
 
    # Value at Risk
    metrics.value_at_risk()
+
+----
+
+Uploading Strategy and Getting API Key
+--------------------------------------
+
+Before using the XNO API services for automated strategy backtesting and deployment, you need to prepare two things:
+
+1. A valid **Python strategy file** containing a `gen_position(df)` function.
+2. Your personal **API Key** from `https://xbot.xno.vn`.
+
+---
+
+Prepare the Strategy Python File
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Your Python script must define a function named **`gen_position(df)`**.  
+This function takes a **DataFrame** (historical data) as input, and returns a **DataFrame** with a mandatory `position` column.
+
+- **Input**: `df` with at least 'Open', 'High', 'Low', 'Close' columns.
+- **Output**: `df` with a new `position` column:
+  - `1` for long (buy signal)
+  - `-1` for short (sell signal)
+  - `0` for no action
+
+Example structure of your script (`strategy.py`):
+
+.. code:: python
+
+   import numpy as np
+
+   def gen_position(df):
+       """
+       Generate trading signals based on a simple moving median strategy.
+       
+       Args:
+           df (pd.DataFrame): Historical OHLCV data.
+
+       Returns:
+           pd.DataFrame: Same DataFrame with an additional 'position' column.
+       """
+       df["position"] = np.sign(df["Close"] - df["Close"].rolling(20).median())
+       return df
+
+**Important Requirements**:
+- The file **must contain** a function named `gen_position`.
+- The function **must return** a DataFrame with a `position` column.
+- No additional external API calls or infinite loops inside your function.
+
+After preparing, compress your script into a `.zip` file if required.
+
+---
+
+Get Your API Key
+^^^^^^^^^^^^^^^^
+
+You need an API Key to interact with the XNO API services. Follow these steps:
+
+1. Go to the XNO API Portal:  
+   `https://xbot.xno.vn`
+2. Register a new account (if you don't have one) or log in.
+3. Navigate to "Xbot Hub" -> Cài đặt -> Mã API.
+4. Click "Tạo mã API" or Copy your API Key existed.
+
+You will need to initialize the XNO API client in your scripts using:
+
+.. code:: python
+
+   from xnoapi import client
+
+   client(apikey="your_generated_api_key")
+
+---
+
+Next Steps
+^^^^^^^^^^
+
+- Upload your `.py` file via the XNO bot upload interface.
+- Monitor strategy performance, backtesting results, and live trading simulations via your dashboard.
 
 ----
 
