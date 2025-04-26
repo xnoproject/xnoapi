@@ -91,36 +91,19 @@ XNO API provides a structured interface for retrieving financial data and module
 Available Modules
 -----------------
 
-**Financial Data**
-- `xnoapi.vn.data.stocks`
-  - `list_liquid_asset()`: List of high-liquidity Vietnamese stocks.
-  - `get_hist(asset)`: Historical OHLCV data.
-- `xnoapi.vn.data.derivatives`
-  - `get_hist(asset, frequency)`: Derivative market data (e.g., VN30F1M).
-
-**Metrics and Analytics**
-- `xnoapi.vn.metrics.Metrics`: Includes: Sharpe Ratio, Sortino Ratio, Max Drawdown, Avg Gain/Loss, Hit Ratio...
-- `xnoapi.vn.metrics.Backtest_Derivates`: Backtesting logic for trading strategies with support for fee modeling.
-- `xnoapi.metrics.single_asset.TradingBacktest`: Lightweight backtesting class for trading strategies on derivatives (supports raw and after-fee PnL calculation). Metrics included: Sharpe, Sortino, Calmar, Max Drawdown, Win Rate, Profit Factor, Risk of Ruin, etc.
-
-**Stocks (`xnoapi.vn.data.stocks`)**
-
+**Stocks**   
 - **list_liquid_asset()**  
-  List of high-liquidity Vietnamese stocks.
+  : List of high-liquidity Vietnamese stocks.
 
 - **get_hist(asset)**  
-  Retrieve historical OHLCV data for a given stock.
+  : Retrieve historical OHLCV data for a given stock.
 
-**Derivatives (`xnoapi.vn.data.derivatives`)**
+**Derivatives**
 
 - **get_hist(asset, frequency)**  
-  Retrieve derivative market data (e.g., VN30F1M futures) with specified frequency.
+  : Retrieve derivative market data (e.g., VN30F1M futures) with specified frequency.
 
-Metrics and Analytics
-----------------------
-
-**Metrics (`xnoapi.vn.metrics.Metrics`)**
-- Various financial performance metrics:
+**Metrics**
   - `avg_loss()`: Average loss per trade.
   - `avg_return()`: Average return per trade.
   - `avg_win()`: Average win per trade.
@@ -135,8 +118,11 @@ Metrics and Analytics
   - `value_at_risk()`: Measure of potential loss in value of an asset.
 
 
-**Backtesting (`xnoapi.vn.metrics.Backtest_Derivates`)**
-- Backtesting logic for trading strategies, including fee modeling support.
+**Backtesting**
+  - `PNL()`: Calculate cumulative profit and loss.
+  - `daily_PNL()`: Calculate daily cumulative profit and loss.
+  - `estimate_minimum_capital()`: Estimate minimum capital required for trading.
+  - `PNL_percentage()`: Calculate PNL as a percentage of capital.
 
 ----
 
