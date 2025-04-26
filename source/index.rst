@@ -77,33 +77,37 @@ XNO API provides a structured interface for retrieving financial data and module
 
    client(apikey="your_api_key")
 
-   # Retrieve list of liquid assets
+   # List of liquid stocks
    stocks.list_liquid_asset()
 
-   # Get historical stock data
-   stocks.get_hist("VIC", "1D")
+   # Historical data for VIC (Vingroup)
+   vic = stocks.get_hist("VIC")
 
-   # Get historical derivatives
-   derivatives.get_hist("VN30F1M", "1m")
+   # Historical data for VN30F1M derivative
+   vn30f1m = derivatives.get_hist("VN30F1M", "1m")
 
 ----
 
 Available Modules
 -----------------
 
-### **Financial Data**
+**Financial Data**
 
 - `xnoapi.vn.data.stocks`
-  - `list_liquid_asset()`: Retrieve list of liquid stocks in Vietnamese financial market.
-  - `get_hist(asset_name, frequency)`: Get historical data for a given asset among liquid assets in Vietnamese Financial Market.
+  - `list_liquid_asset()`: List of high-liquidity Vietnamese stocks.
+  - `get_hist(asset)`: Historical OHLCV data.
 - `xnoapi.vn.data.derivatives`
-  - `get_hist()`: Get historical derivative data.
+  - `get_hist(asset, frequency)`: Derivative market data (e.g., VN30F1M).
 
-### **Metrics and Analytics**
+**Metrics and Analytics**
 
-- `xnoapi.vn.metrics`
-  - `Metrics`: Various financial metrics calculation. Includes Sharpe Ratio, Sortino Ratio, Max Drawdown, and more
-  - `Backtest_Derivates`: Backtesting tools for derivatives, with fees calculation optimized for Vietnamese financial market.
+- `xnoapi.vn.metrics.Metrics`:
+  - Includes: Sharpe Ratio, Sortino Ratio, Max Drawdown, Avg Gain/Loss, Hit Ratio...
+- `xnoapi.vn.metrics.Backtest_Derivates`:
+  - Backtesting logic for trading strategies with support for fee modeling.
+- `xnoapi.metrics.single_asset.TradingBacktest`:
+  - Lightweight backtesting class for trading strategies on derivatives (supports raw and after-fee PnL calculation).
+  - Metrics included: Sharpe, Sortino, Calmar, Max Drawdown, Win Rate, Profit Factor, Risk of Ruin, etc.
 
 ----
 
@@ -135,7 +139,7 @@ API Documentation
 Examples
 --------
 
-### **Retrieving Stock Data**
+**Retrieving Stock Data**
 
 .. code:: python
 
@@ -148,30 +152,98 @@ Examples
    liquid_assets = stocks.list_liquid_asset()
 
    # Get historical data for VIC stock
-   vic_history = stocks.get_hist("VIC", "1D")
+   vic_history = stocks.get_hist("VIC")
 
-### **Using Metrics**
+----
+
+**Retrieving Derivatives Data**
+
+.. code:: python
+
+   from xnoapi import client
+   from xnoapi.vn.data import derivatives
+
+   client(apikey="your_api_key")
+
+   # Get historical data for VN30F1M derivative
+   vn30f1m_history = derivatives.get_hist("VN30F1M", "1m")
+
+----
+
+**Using Metrics**
 
 .. code:: python
    from xnoapi.vn.metrics import Metrics, Backtest_Derivates
    from xnoapi.vn.data import derivatives
+   import numpy as np
 
+   # Generate signal: simple strategy based on 20-period median
    def gen_position(df):
-      """
-      Position generation strategy: Volume change detection
-      """
       return df.assign(
-         position=np.sign(df["Close"] - df["Close"].rolling(window=20).median())
+         position=np.sign(df["Close"] - df["Close"].rolling(20).median())
       )
 
-   # Initialize metrics instance
-   historical = derivatives.get_hist("VN30F1M", "1m")
-   position = gen_position(historical)
-   backtest = Backtest_Derivates(position, "raw") # raw or after_fees
+   # Fetch 1-minute historical data
+   df = derivatives.get_hist("VN30F1M", "1m")
+   df_pos = gen_position(df)
+
+   # Backtest the strategy
+   backtest = Backtest_Derivates(df_pos, pnl_type="raw")
+
+   # Initialize metrics
    metrics = Metrics(backtest)
 
-   # Example usage
-   result = metrics.avg_loss()
+   # === Backtest_Derivates Methods ===
+
+   # Cumulative PNL
+   cumulative_pnl = backtest.PNL()
+
+   # Daily cumulative PNL
+   daily_cumulative_pnl = backtest.daily_PNL()
+
+   # Estimate Minimum Capital Required
+   min_capital = backtest.estimate_minimum_capital()
+
+   # PNL Percentage
+   pnl_percentage = backtest.PNL_percentage()
+
+   # === Metrics Methods ===
+
+   # Average Loss
+   metrics.avg_loss()
+
+   # Average Return
+   metrics.avg_return()
+
+   # Average Win
+   metrics.avg_win()
+
+   # Max Drawdown
+   metrics.max_drawdown()
+
+   # Win Rate
+   metrics.win_rate()
+
+   # Volatility
+   metrics.volatility()
+
+   # Sharpe Ratio
+   metrics.sharpe()
+
+   # Sortino Ratio
+   metrics.sortino()
+
+   # Calmar Ratio
+   metrics.calmar()
+
+   # Profit Factor
+   metrics.profit_factor()
+
+   # Risk of Ruin
+   metrics.risk_of_ruin()
+
+   # Value at Risk
+   metrics.value_at_risk()
 
 ----
 

@@ -34,7 +34,7 @@ def list_liquid_asset():
         raise Exception(f"Error: {response.status_code}, {response.text}")
 
 
-def get_hist(asset_name: str, frequency: str):
+def get_hist(asset_name: str):
     """
     Retrieve the historical data of an asset, forward-filling missing values.
 
@@ -42,8 +42,6 @@ def get_hist(asset_name: str, frequency: str):
     ----------
     asset_name : str
         The name of the asset (e.g., "VIC", "VHM").
-    frequency : str
-        The time interval for historical data (e.g., "1D", "1H", "5M").
 
     Returns
     -------
@@ -58,7 +56,6 @@ def get_hist(asset_name: str, frequency: str):
     api_key = Config.get_api_key()
     payload = {
         "asset_name": asset_name,
-        "frequency": frequency,
     }
 
     response = requests.post(
@@ -69,5 +66,3 @@ def get_hist(asset_name: str, frequency: str):
         return pd.DataFrame(response.json())
     else:
         raise Exception(f"Error: {response.status_code}, {response.text}")
-
-    print(response.json)

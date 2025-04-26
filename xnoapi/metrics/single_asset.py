@@ -78,7 +78,9 @@ class TradingBacktest:
             Minimum capital required.
         """
         self.df["cumulative_pnl"] = self.cumulative_PNL()
-        self.df["capital_required"] = (self.df["position"].abs() * self.df["close"]) - self.df["cumulative_pnl"]
+        self.df["capital_required"] = (
+            self.df["position"].abs() * self.df["close"]
+        ) - self.df["cumulative_pnl"]
 
         return max(self.df["capital_required"].max(), 0)
 
@@ -190,7 +192,11 @@ class TradingBacktest:
             Sortino ratio.
         """
         downside_std = self.daily_pnl[self.daily_pnl < 0].std()
-        return (self.avg_return() - risk_free_rate) / downside_std * np.sqrt(252) if downside_std > 0 else np.nan
+        return (
+            (self.avg_return() - risk_free_rate) / downside_std * np.sqrt(252)
+            if downside_std > 0
+            else np.nan
+        )
 
     def calmar(self, risk_free_rate=0.0):
         """
@@ -202,7 +208,9 @@ class TradingBacktest:
             Calmar ratio.
         """
         return (
-            (self.avg_return() - risk_free_rate) / abs(self.max_drawdown()) * np.sqrt(252)
+            (self.avg_return() - risk_free_rate)
+            / abs(self.max_drawdown())
+            * np.sqrt(252)
             if self.max_drawdown() != 0
             else np.nan
         )
@@ -231,7 +239,11 @@ class TradingBacktest:
         """
         win_rate = self.win_rate()
         loss_rate = 1 - win_rate
-        return (loss_rate / win_rate) ** (1 / self.avg_loss()) if self.avg_loss() != 0 else np.nan
+        return (
+            (loss_rate / win_rate) ** (1 / self.avg_loss())
+            if self.avg_loss() != 0
+            else np.nan
+        )
 
     def value_at_risk(self, confidence_level=0.05):
         """
