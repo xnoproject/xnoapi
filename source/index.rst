@@ -99,13 +99,9 @@ Available Modules
   - `get_hist(asset, frequency)`: Derivative market data (e.g., VN30F1M).
 
 **Metrics and Analytics**
-- `xnoapi.vn.metrics.Metrics`:
-  - Includes: Sharpe Ratio, Sortino Ratio, Max Drawdown, Avg Gain/Loss, Hit Ratio...
-- `xnoapi.vn.metrics.Backtest_Derivates`:
-  - Backtesting logic for trading strategies with support for fee modeling.
-- `xnoapi.metrics.single_asset.TradingBacktest`:
-  - Lightweight backtesting class for trading strategies on derivatives (supports raw and after-fee PnL calculation).
-  - Metrics included: Sharpe, Sortino, Calmar, Max Drawdown, Win Rate, Profit Factor, Risk of Ruin, etc.
+- `xnoapi.vn.metrics.Metrics`: Includes: Sharpe Ratio, Sortino Ratio, Max Drawdown, Avg Gain/Loss, Hit Ratio...
+- `xnoapi.vn.metrics.Backtest_Derivates`: Backtesting logic for trading strategies with support for fee modeling.
+- `xnoapi.metrics.single_asset.TradingBacktest`: Lightweight backtesting class for trading strategies on derivatives (supports raw and after-fee PnL calculation). Metrics included: Sharpe, Sortino, Calmar, Max Drawdown, Win Rate, Profit Factor, Risk of Ruin, etc.
 
 ----
 
@@ -254,8 +250,6 @@ Before using the XNO API services for automated strategy backtesting and deploym
 1. A valid **Python strategy file** containing a `gen_position(df)` function.
 2. Your personal **API Key** from `https://xbot.xno.vn`.
 
----
-
 Prepare the Strategy Python File
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -292,9 +286,6 @@ Example structure of your script (`strategy.py`):
 - The function **must return** a DataFrame with a `position` column.
 - No additional external API calls or infinite loops inside your function.
 
-After preparing, compress your script into a `.zip` file if required.
-
----
 
 Get Your API Key
 ^^^^^^^^^^^^^^^^
@@ -315,11 +306,8 @@ You will need to initialize the XNO API client in your scripts using:
 
    client(apikey="your_generated_api_key")
 
----
-
 Next Steps
 ^^^^^^^^^^
-
 - Upload your `.py` file via the XNO bot upload interface.
 - Monitor strategy performance, backtesting results, and live trading simulations via your dashboard.
 
