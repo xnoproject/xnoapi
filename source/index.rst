@@ -42,29 +42,6 @@ After installation, you can import and start using XNO API:
 
 ----
 
-Contents
---------
-
-.. toctree::
-   :caption: Guide
-   :maxdepth: 2
-
-   installation
-   usage
-   available_modules
-   examples
-
-.. toctree::
-   :caption: API
-   :maxdepth: 2
-
-   api/stocks
-   api/derivatives
-   api/metrics
-   api/backtest_derivatives
-
-----
-
 Usage
 -----
 
@@ -92,63 +69,31 @@ Available Modules
 -----------------
 
 **Stocks**   
-
-- **list_liquid_asset()**  
-  : List of high-liquidity Vietnamese stocks.
-
-- **get_hist(asset)**  
-  : Retrieve historical OHLCV data for a given stock.
+ - `list_liquid_asset()` : List of high-liquidity Vietnamese stocks.
+ - `get_hist(asset)` : Retrieve historical OHLCV data for a given stock.
 
 **Derivatives**
-
-- **get_hist(asset, frequency)**  
-  : Retrieve derivative market data (e.g., VN30F1M futures) with specified frequency.
+ - `get_hist(asset, frequency)` : Retrieve derivative market data (e.g., VN30F1M futures) with specified frequency.
 
 **Metrics**
-  - `avg_loss()`: Average loss per trade.
-  - `avg_return()`: Average return per trade.
-  - `avg_win()`: Average win per trade.
-  - `max_drawdown()`: Maximum drawdown observed.
-  - `win_rate()`: Percentage of winning trades.
-  - `volatility()`: Measure of price fluctuations.
-  - `sharpe()`: Sharpe ratio for risk-adjusted return.
-  - `sortino()`: Sortino ratio for downside risk adjustment.
-  - `calmar()`: Calmar ratio for risk-adjusted return over drawdown.
-  - `profit_factor()`: Ratio of gross profit to gross loss.
-  - `risk_of_ruin()`: Probability of losing all capital.
-  - `value_at_risk()`: Measure of potential loss in value of an asset.
-
+ - `avg_loss()`: Average loss per trade.
+ - `avg_return()`: Average return per trade.
+ - `avg_win()`: Average win per trade.
+ - `max_drawdown()`: Maximum drawdown observed.
+ - `win_rate()`: Percentage of winning trades.
+ - `volatility()`: Measure of price fluctuations.
+ - `sharpe()`: Sharpe ratio for risk-adjusted return.
+ - `sortino()`: Sortino ratio for downside risk adjustment.
+ - `calmar()`: Calmar ratio for risk-adjusted return over drawdown.
+ - `profit_factor()`: Ratio of gross profit to gross loss.
+ - `risk_of_ruin()`: Probability of losing all capital.
+ - `value_at_risk()`: Measure of potential loss in value of an asset.
 
 **Backtesting**
-  - `PNL()`: Calculate cumulative profit and loss.
-  - `daily_PNL()`: Calculate daily cumulative profit and loss.
-  - `estimate_minimum_capital()`: Estimate minimum capital required for trading.
-  - `PNL_percentage()`: Calculate PNL as a percentage of capital.
-
-----
-
-API Documentation
------------------
-
-.. toctree::
-   :caption: Stocks API
-   :maxdepth: 2
-
-   api/stocks.list_liquid_asset
-   api/stocks.get_hist
-
-.. toctree::
-   :caption: Derivatives API
-   :maxdepth: 2
-
-   api/derivatives.get_hist
-
-.. toctree::
-   :caption: Metrics API
-   :maxdepth: 2
-
-   api/metrics.Metrics
-   api/metrics.Backtest_Derivates
+ - `PNL()`: Calculate cumulative profit and loss.
+ - `daily_PNL()`: Calculate daily cumulative profit and loss.
+ - `estimate_minimum_capital()`: Estimate minimum capital required for trading.
+ - `PNL_percentage()`: Calculate PNL as a percentage of capital.
 
 ----
 
@@ -272,14 +217,14 @@ Before using the XNO API services for automated strategy backtesting and deploym
 1. A valid **Python strategy file** containing a `gen_position(df)` function.
 2. Your personal **API Key** from `https://xbot.xno.vn`.
 
-Prepare the Strategy Python File
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Prepare the Strategy Python File**
 
 Your Python script must define a function named **`gen_position(df)`**.  
 This function takes a **DataFrame** (historical data) as input, and returns a **DataFrame** with a mandatory `position` column.
 
 - **Input**: `df` with at least 'Open', 'High', 'Low', 'Close' columns.
 - **Output**: `df` with a new `position` column:
+
   - `1` for long (buy signal)
   - `-1` for short (sell signal)
   - `0` for no action
@@ -303,14 +248,14 @@ Example structure of your script (`strategy.py`):
        df["position"] = np.sign(df["Close"] - df["Close"].rolling(20).median())
        return df
 
-**Important Requirements**:
+**Important Requirements**
+
 - The file **must contain** a function named `gen_position`.
 - The function **must return** a DataFrame with a `position` column.
 - No additional external API calls or infinite loops inside your function.
 
 
-Get Your API Key
-^^^^^^^^^^^^^^^^
+**Get Your API Key**
 
 You need an API Key to interact with the XNO API services. Follow these steps:
 
@@ -328,8 +273,8 @@ You will need to initialize the XNO API client in your scripts using:
 
    client(apikey="your_generated_api_key")
 
-Next Steps
-^^^^^^^^^^
+**Next Steps**
+
 - Upload your `.py` file via the XNO bot upload interface.
 - Monitor strategy performance, backtesting results, and live trading simulations via your dashboard.
 
