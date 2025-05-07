@@ -6,9 +6,11 @@ Chúng tôi hoan nghênh mọi đóng góp nhằm cải thiện tài liệu cho 
 
 ## Bước 1: Fork & clone dự án
 
+Truy cập vào github: `https://github.com/xnoproject/xnoapi`
+Tiếp theo fork dự án về github của bạn và clone về.
+
 ```bash
 git clone https://github.com/your-username/xnoapi
-cd xnoapi
 ```
 
 ---
@@ -161,16 +163,16 @@ Trong `index.rst`, khai báo mục lục bằng `toctree`:
 
 Chia nhỏ các phần tài liệu theo module:
 
-- [  ] Đặt tiêu đề rõ ràng, theo đúng cấu trúc tiêu đề
+- [ ] Đặt tiêu đề rõ ràng, theo đúng cấu trúc tiêu đề
 
-- [  ] Sử dụng .. autofunction:: hoặc .. autoclass:: nếu có thể
+- [ ] Sử dụng .. autofunction:: hoặc .. autoclass:: nếu có thể
 
-- [  ] Thêm ví dụ sử dụng bằng code-block
+- [ ] Thêm ví dụ sử dụng bằng code-block
 
-- [  ] Ghi rõ :param: và :return: nếu không dùng autodoc
+- [ ] Ghi rõ :param: và :return: nếu không dùng autodoc
 
-- [  ] Kiểm tra hiển thị bằng lệnh make html trước khi gửi PR
+- [ ] Kiểm tra hiển thị bằng lệnh make html trước khi gửi PR
 
-- [  ] Nếu viết bài hướng dẫn, đính kèm link vào mục Tutorials trong docs
+- [ ] Nếu viết bài hướng dẫn, đính kèm link vào mục Tutorials trong docs
 
 Cảm ơn bạn đã đóng góp cho `xnoapi`! 💙
