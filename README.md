@@ -15,20 +15,20 @@ XNO API là thư viện Python dùng để truy xuất dữ liệu tài chính v
 📦 Cài đặt
 Cài đặt qua pip:
 
-sh
+```sh
 Copy
 Edit
 pip install xnoapi
 Hoặc clone repo:
 
-sh
+```sh
 Copy
 Edit
 git clone https://github.com/xnoproject/xnoapi.git
 pip install ./xnoapi
 Khởi tạo sau khi cài đặt:
 
-python
+```python
 Copy
 Edit
 from xnoapi import client
@@ -46,7 +46,7 @@ Tài liệu online: https://xnoapi.readthedocs.io
 🚀 Ví dụ nhanh
 Lấy và phân tích dữ liệu cổ phiếu & phái sinh Việt Nam:
 
-python
+```python
 Copy
 Edit
 from xnoapi import client
